@@ -137,11 +137,12 @@ from accounts.models import  Profile
 def ReportView(request,*args,**kwargs):
 	question=get_object_or_404(Questions,id=kwargs['pk'])
 	admins=Profile.objects.filter(superuser=True)
-	user=get_object_or_404(Profile,id=request.user.profile)
+	user=get_object_or_404(Profile,id=request.user.profile.id)
+	context = {
+		'question': question
+	}
 	if request.method=='GET':
-		context={
-			'question':question
-		}
+
 		qtn_type=request.GET.get('offensive_content_type')
 		def send_mail(request):
 			ctx = {
@@ -152,7 +153,9 @@ def ReportView(request,*args,**kwargs):
 			subject = "report"
 			message = get_template('community_forum/question_mail.html'.render(ctx))
 			from_email = settings.EMAIL_HOST_USER
-			to_email = [admins]
+			to_email=[]
+			for i in admins:
+				to_email.append(i)
 			msg = EmailMessage(
 				subject,
 				message,
@@ -161,4 +164,5 @@ def ReportView(request,*args,**kwargs):
 			)
 			msg.content_subtype = "html"  # Main content is now text/html
 			msg.send()
+		return redirect('community_forum:question-detail',args=(int(question.id)))
 	return render(request,"community_forum/report.html",context)
