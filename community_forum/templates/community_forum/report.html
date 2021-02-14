@@ -1,0 +1,19 @@
+{%extends 'Ask_the_doctor/base.html'%}
+{%block content%}
+    <form method="get" id="offensive_content_type">
+
+        <input type="radio" value="sc" >
+        <label for="sc">Sexual content</label><br>
+        <input type="radio" value="vr" >
+        <label for="vr">Violent or repulsive content</label><br>
+        <input type="radio" value="ha" >
+        <label for="ha">Hateful or abusive content</label><br>
+        <input type="radio" value="hd" >
+        <label for="hd">Harmful or dangerous content</label><br>
+        <input type="radio" value="sm" >
+        <label for="sm">Spam or misleading</label><br>
+        <a href="/community_forum/{{question.id}}">Cancel</a>
+        <input type="submit" value="report">
+
+    </form>
+{% endblock %}

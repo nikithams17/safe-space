@@ -130,3 +130,35 @@ def CategoryInfo(request,*args,**kwargs):
 	}
 	return render(request,'community_forum/info.html',context)
 
+from django.template.loader import render_to_string, get_template
+from django.core.mail import EmailMessage
+from accounts.models import  Profile
+
+def ReportView(request,*args,**kwargs):
+	question=get_object_or_404(Questions,id=kwargs['pk'])
+	admins=Profile.objects.filter(superuser=True)
+	user=get_object_or_404(Profile,id=request.user.profile)
+	if request.method=='GET':
+		context={
+			'question':question
+		}
+		qtn_type=request.GET.get('offensive_content_type')
+		def send_mail(request):
+			ctx = {
+				'user': user,
+				'question': question,
+				'qtn_type':qtn_type
+			}
+			subject = "report"
+			message = get_template('community_forum/question_mail.html'.render(ctx))
+			from_email = settings.EMAIL_HOST_USER
+			to_email = [admins]
+			msg = EmailMessage(
+				subject,
+				message,
+				from_email,
+				to_email
+			)
+			msg.content_subtype = "html"  # Main content is now text/html
+			msg.send()
+	return render(request,"community_forum/report.html",context)
