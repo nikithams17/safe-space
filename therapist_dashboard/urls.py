@@ -9,6 +9,6 @@ urlpatterns = [
 	path('questions/<int:pk>/your_answers/',views.AnswerView),
 	path('questions/<int:pk>/answer/',views.NewAnswerView),
 	path('questions/<int:pk>/your_answers/<int:pk_alt>/edit/',views.AnswerUpdateView),
-	path('home/',views.HomeView),
+	path('home/',views.HomeView,name="home"),
 ]
 #path('patients/',views.PatientsView.as_view()),

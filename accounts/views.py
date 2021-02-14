@@ -69,7 +69,7 @@ def therapist_signup(request):
             raw_password = form.cleaned_data.get('password1')
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
-            return redirect('therapist_dashboard:profile')
+            return redirect('therapist_dashboard:home')
     else:
         form = TherapistSignupForm()
     return render(request, 'accounts/therapist_signup.html', {'form': form})
@@ -91,7 +91,7 @@ def login_request(request):
                 if user.is_normal_user==True:
                     return redirect('home')
                 else:
-                    return redirect('therapist_dashboard:profile')
+                    return redirect('therapist_dashboard:home')
             else:
                 messages.error(request, "Invalid username or password.")
         else:

@@ -17,7 +17,7 @@
 			<h3>{{category}}</h3>
 		</div>
 		<div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-			{% if request.user is is_normal_user%}
+			{% if request.user.is_normal_user is True%}
 			<span style="font-weight: bolder;font-size: 1.5rem;"><a href="/community_forum/{{category}}/questions/new/">Ask a question</a></span>
 			{% else %}
 				<p></p>
@@ -33,12 +33,14 @@
 
 <div class="container cats">
 	<br>
-	<div class="row">
+	<!---<div class="row">
+
 		<div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 offset-lg-8">
 			<b>Up votes</b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>Down votes</b>
 		</div>
+
 		
-	</div>
+	</div>-->
 	<div class="row">
 		{% for question in category_questions %}
 			<br>
@@ -49,10 +51,10 @@
 			
 			<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
 				
-				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{question.total_upvotes}}
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{{question.total_upvotes}} &nbsp;&nbsp;&nbsp; <i class="fal fa-arrow-alt-up"></i>
 			</div>
 			<div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-				{{question.total_downvotes}}
+				{{question.total_downvotes}} &nbsp;&nbsp;&nbsp;<i class="fal fa-arrow-alt-down"></i>
 			</div>
 			
 			{% empty %}

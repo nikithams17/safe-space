@@ -32,24 +32,35 @@
 </style>
 
 <br><br>
+{% if request.user.is_normal_user is True%}
 <div class="container">
 	<p style="color:red;font-weight: bold;">Dear user, please ask your questions in the forum which is relavent to your question. If you are not sure about which category your question falls into, ask the question in 'Others' forum.</p>
 </div>
 
+<div class="container">
+		<span style="font-weight:bolder;"> Not sure which forum is for you?<a href="/community_forum/quiz/">Take the quiz</a><br>
+		for depression,anxiety,panic attacks  and bipolar disorder.<br></span>
+	</div><br><br>
+{% endif %}
 <div class="container" style="background-color:white;">
 
 	<div class="row">
-		{% for category in categories%}
-		
-	    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
-	    	<span style="font-weight: bolder;"><br><a href="/community_forum/{{category.category_name}}/">{{category.category_name|safe}}</a><br></span>
-	    	<a href="/community_forum/{{category.id}}/info/">More info...</a><br>
-	    </div>
-	    {% endfor %}
-	    <br>
-	</div>
-</div>
 
+
+
+			{% for category in categories%}
+
+			<div class="col-lg-3 col-md-3 col-sm-6 col-xs-6">
+				<span style="font-weight: bolder;"><br><a href="/community_forum/{{category.category_name}}/">{{category.category_name|safe}}</a><br></span>
+				<a href="/community_forum/{{category.id}}/info/">More info...</a><br>
+			</div>
+			{% endfor %}
+			<br>
+			</div>
+
+
+</div>
+<!--
 <div id="overlay">
 	<div id="content">
 		<div class="container">
@@ -66,15 +77,15 @@
 		</div>
 	</div>
 </div>
-
+-->
 <script type="text/javascript">
-function on() {
+/*function on() {
   document.getElementById("overlay").style.display = "block";
 }
 window.onload=on();
 function off() {
   document.getElementById("overlay").style.display = "none";
-}
+}*/
 </script>
 
 {% endblock %}
